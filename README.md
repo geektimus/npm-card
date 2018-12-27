@@ -8,6 +8,14 @@ Via npx:
 npx @geektimus/card
 ```
 
+## Example
+
+![Card](npm-card.gif)
+
+## TODO
+
+- Find a way to query the image directly from github.
+
 ## Credits
 
 Forked from [Tierney Cyren's repo][fork_src]
