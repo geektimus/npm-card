@@ -1,6 +1,6 @@
 {
   "name": "@geektimus/card",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A personal card for Alexander Cano (@geektimus)",
   "main": "/bin/card.js",
   "bin": {
