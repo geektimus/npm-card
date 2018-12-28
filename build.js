@@ -12,14 +12,22 @@ const Table = require('cli-table3')
 const boxenOptions = {
   padding: 1,
   margin: 1,
-  borderStyle: 'round'
+  borderStyle: 'double',
+  backgroundColor: 'black',
+  dimBorder: true
+}
+
+// Define options for Asciify
+const asciiOptions = {
+  fit: 'box',
+  width: '35%'
 }
 
 // Text + chalk definitions
 const data = {
   name: chalk.white('           Alexander Cano'),
   handle: chalk.white('Geektimus'),
-  work: chalk.white('Software Engineer at Klarna'),
+  work: chalk.white('Software Engineer') + chalk.magenta(' @Klarna'),
   twitter: chalk.gray('https://twitter.com/') + chalk.cyan('geektimus'),
   npm: chalk.gray('https://npmjs.com/') + chalk.red('~geektimus'),
   github: chalk.gray('https://github.com/') + chalk.green('geektimus'),
@@ -45,12 +53,6 @@ const githubing = `${data.labelGitHub}  ${data.github}`
 const linkedining = `${data.labelLinkedIn}  ${data.linkedin}`
 const webing = `${data.labelWeb}  ${data.web}`
 const carding = `${data.labelCard}  ${data.npx}`
-
-// Define options for Asciify
-const asciiOptions = {
-  fit: 'box',
-  width: '30%'
-}
 
 const getAvatar = async imageName => {
   try {
