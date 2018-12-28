@@ -26,7 +26,8 @@
   "author": "Alexander Cano (http://geektimus.me)",
   "license": "MIT",
   "files": [
-    "bin/card.js"
+    "bin/card.js",
+    "resources/avatar.jpg"
   ],
   "devDependencies": {
     "standard": "^12.0.1"
