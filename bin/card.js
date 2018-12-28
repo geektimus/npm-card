@@ -9,6 +9,7 @@ const fs = require('fs')
 const path = require('path')
 const asciify = require('asciify-image')
 const Table = require('cli-table3')
+const Either = require('data.either')
 
 // Define options for Boxen
 const boxenOptions = {
@@ -56,14 +57,12 @@ const linkedining = `${data.labelLinkedIn}  ${data.linkedin}`
 const webing = `${data.labelWeb}  ${data.web}`
 const carding = `${data.labelCard}  ${data.npx}`
 
+// String -> Either(Error, String)
 const getAvatar = async imageName => {
-  try {
-    const image = path.join(__dirname, '..', 'resources', imageName)
-    return await asciify(image, asciiOptions)
-  } catch (error) {
-    console.log(error.message)
-    process.exit(1)
-  }
+  const imagePath = path.join(__dirname, '..', 'resources', imageName)
+  return fs.existsSync(imagePath)
+    ? Either.Right(await asciify(imagePath, asciiOptions))
+    : Either.Left('Non-existing image: ' + imagePath)
 }
 
 const generateCard = avatar => {
@@ -89,15 +88,22 @@ const generateCard = avatar => {
   table.push([avatar, { content: output, vAlign: 'center' }])
 
   const card = table.toString()
-  return chalk.magenta(boxen(card, boxenOptions))
+  return Either.Right(chalk.magenta(boxen(card, boxenOptions)))
 }
 
 const printCard = async () => {
   // Keeping this here so I can pass an URL later.
   const imageName = 'avatar.jpg'
   const avatar = await getAvatar(imageName)
-  const card = generateCard(avatar)
-  console.log(card)
+  avatar
+    .map(a => {
+      generateCard(a).chain(card => {
+        console.log(card)
+      })
+    })
+    .orElse(err => {
+      console.log(err)
+    })
 }
 
 printCard()
